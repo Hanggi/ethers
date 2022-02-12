@@ -8,8 +8,16 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
+#  flutter:
+#    sdk: flutter
+
+
+  http: ^0.13.4
+  json_rpc_2: ^3.0.1
+
+
+  pointycastle: ^3.4.0
+  convert: ^3.0.0
 
 dev_dependencies:
   flutter_test:
