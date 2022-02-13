@@ -1,5 +1,7 @@
 # Ethers For Flutter
 
+![test](https://github.com/Hanggi/ethers/actions/workflows/test.yml/badge.svg)
+
 Ethers is a dart library that connects to interact with the Ethereum blockchain and inspired by [ethers.js](https://github.com/ethers-io/ethers.js/).
 
 Thanks to [web3dart](https://github.com/simolus3/web3dart) which is no longer maintained.
