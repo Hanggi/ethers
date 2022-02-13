@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 import 'package:convert/convert.dart';
+import 'package:ethers/crypto/keccak.dart';
 // ignore: implementation_imports
 import 'package:pointycastle/src/utils.dart' as p_utils;
+import 'package:bip39/bip39.dart' as bip39;
 
 /// If present, removes the 0x from the start of a hex-string.
 String strip0x(String hex) {
@@ -70,4 +72,53 @@ BigInt hexToInt(String hex) {
 /// Converts the hexadecimal input and creates an [int].
 int hexToDartInt(String hex) {
   return int.parse(strip0x(hex), radix: 16);
+}
+
+Uint8List mnemonicToSeed(String mnemonic) {
+  /// Normalize the case and spacing in the mnemonic (throws if the mnemonic is invalid)
+  final wordsList = mnemonic.split(' ');
+  wordsList.removeWhere((word) => word == '');
+  mnemonic = wordsList.join(' ');
+  if (!bip39.validateMnemonic(mnemonic)) {
+    throw 'invalid mnemonic';
+  }
+
+  final seed = bip39.mnemonicToSeed(mnemonic);
+  return seed;
+}
+
+bool isHexString(String value, {int? length}) {
+  RegExp regExp = RegExp(
+    r"^0x[0-9A-Fa-f]*$",
+  );
+  if (length != null && value.length != 2 + 2 * length) {
+    return false;
+  }
+  return regExp.hasMatch(value);
+}
+
+String getChecksumAddress(String address) {
+  if (!isHexString(address, length: 20)) {
+    throw 'invalid hex value';
+  }
+  address = address.toLowerCase();
+
+  final chars = address.substring(2).split("");
+
+  Uint8List expanded = Uint8List(40);
+  for (var i = 0; i < 40; i++) {
+    expanded[i] = chars[i].codeUnitAt(0);
+  }
+
+  final hashed = keccak256(expanded);
+  for (var i = 0; i < 40; i += 2) {
+    if ((hashed[i >> 1] >> 4) >= 8) {
+      chars[i] = chars[i].toUpperCase();
+    }
+    if ((hashed[i >> 1] & 0x0f) >= 8) {
+      chars[i + 1] = chars[i + 1].toUpperCase();
+    }
+  }
+
+  return '0x' + chars.join('');
 }

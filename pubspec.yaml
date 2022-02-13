@@ -14,9 +14,11 @@ dependencies:
 
   http: ^0.13.4
   json_rpc_2: ^3.0.1
+  bip39: ^1.0.6
+  bip32: ^2.0.0
 
 
-  pointycastle: ^3.4.0
+  pointycastle: ^3.5.0
   convert: ^3.0.0
 
 dev_dependencies:

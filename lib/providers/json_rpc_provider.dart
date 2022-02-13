@@ -1,9 +1,8 @@
-import 'dart:typed_data';
-
 import 'package:ethers/crypto/formatting.dart';
 import 'package:ethers/json_rpc.dart';
 import 'package:ethers/params/block_tag.dart';
 import 'package:ethers/providers/provider.dart';
+import 'package:ethers/signers/json_rpc_signer.dart';
 import 'package:http/http.dart';
 
 const defaultURL = 'http://locaclhost:8545';
@@ -203,19 +202,5 @@ class JsonRpcProvider extends Provider {
   Future<Map<String, dynamic>?> getTransactionReceipt(String hash) {
     return _makeRPCCall<Map<String, dynamic>?>(
         'eth_getTransactionReceipt', [hash]);
-  }
-}
-
-class JsonRpcSigner {
-  connect(Provider provider) {
-    // TODO:
-  }
-
-  connectUnchecked(Provider provider) {
-    // TODO:
-  }
-
-  getAddress() {
-    // TODO:
   }
 }
