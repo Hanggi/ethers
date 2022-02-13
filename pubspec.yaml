@@ -1,11 +1,11 @@
 name: ethers
-description: A new Flutter project.
+description: Ethereum library and wallet implementation in Dart.
 version: 0.0.1+1
-homepage: https://pub.dev/packages/ethers
+homepage: https://pub.dev/documentation/ethers
 repository: https://github.com/Hanggi/ethers
 
 environment:
-  sdk: ">=2.16.0 <3.0.0"
+  sdk: ">=2.15.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
