@@ -1,8 +1,12 @@
+// 🎯 Dart imports:
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:ethers/crypto/formatting.dart';
+// 📦 Package imports:
 import 'package:pointycastle/api.dart';
+
+// 🌎 Project imports:
+import 'package:ethers/crypto/formatting.dart';
 
 /// Utility to use dart:math's Random class to generate numbers used by
 /// pointycastle.

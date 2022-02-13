@@ -1,9 +1,15 @@
+// 🎯 Dart imports:
 import 'dart:typed_data';
-import 'package:convert/convert.dart';
-import 'package:ethers/crypto/keccak.dart';
-// ignore: implementation_imports
-import 'package:pointycastle/src/utils.dart' as p_utils;
+
+// 📦 Package imports:
 import 'package:bip39/bip39.dart' as bip39;
+import 'package:convert/convert.dart';
+import 'package:pointycastle/src/utils.dart' as p_utils;
+
+// 🌎 Project imports:
+import 'package:ethers/crypto/keccak.dart';
+
+// ignore: implementation_imports
 
 /// If present, removes the 0x from the start of a hex-string.
 String strip0x(String hex) {

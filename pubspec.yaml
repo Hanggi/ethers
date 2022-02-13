@@ -1,7 +1,8 @@
 name: ethers
 description: A new Flutter project.
-version: 0.0.1
-homepage:
+version: 0.0.1+1
+homepage: https://pub.dev/packages/ethers
+repository: https://github.com/Hanggi/ethers
 
 environment:
   sdk: ">=2.16.0 <3.0.0"
@@ -16,6 +17,7 @@ dependencies:
   json_rpc_2: ^3.0.1
   bip39: ^1.0.6
   bip32: ^2.0.0
+  meta: ^1.7.0
 
 
   pointycastle: ^3.5.0
@@ -25,6 +27,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
+
+  import_sorter: ^4.6.0
+
+import_sorter:
+  emojis: true # Optional, defaults to false
+  comments: true # Optional, defaults to true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

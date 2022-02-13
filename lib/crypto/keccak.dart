@@ -1,7 +1,11 @@
+// 🎯 Dart imports:
 import 'dart:convert';
 import 'dart:typed_data';
 
+// 📦 Package imports:
 import 'package:pointycastle/digests/keccak.dart';
+
+// 🌎 Project imports:
 import '../utils/typed_data.dart';
 
 final KeccakDigest keccakDigest = KeccakDigest(256);

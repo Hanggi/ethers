@@ -1,6 +1,8 @@
+// 🎯 Dart imports:
 import 'dart:math';
 import 'dart:typed_data';
 
+// 📦 Package imports:
 import 'package:meta/meta.dart';
 import 'package:pointycastle/api.dart';
 import 'package:pointycastle/digests/sha256.dart';
@@ -11,6 +13,7 @@ import 'package:pointycastle/key_generators/ec_key_generator.dart';
 import 'package:pointycastle/macs/hmac.dart';
 import 'package:pointycastle/signers/ecdsa_signer.dart';
 
+// 🌎 Project imports:
 import '../utils/typed_data.dart';
 import 'formatting.dart';
 import 'keccak.dart';

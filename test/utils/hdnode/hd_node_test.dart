@@ -1,7 +1,9 @@
-import 'package:ethers/utils/hdnode/hd_node.dart';
+// 📦 Package imports:
 import 'package:flutter_test/flutter_test.dart';
 
+// 🌎 Project imports:
 import 'package:ethers/ethers.dart';
+import 'package:ethers/utils/hdnode/hd_node.dart';
 
 final provider = ethers.providers
     .jsonRpcProvider('https://data-seed-prebsc-1-s1.binance.org:8545');
@@ -41,11 +43,15 @@ void main() {
         '0xa8E070649A1D98651D281FdD428BD3EeC0d279e0',
         reason: 'address not expected',
       );
-
       expect(
         hdNode.chainCode,
         '0x7923408dadd3c7b56eed15567707ae5e5dca089de972e07f3b860450e2a3b70e',
         reason: 'chainCode not expected',
+      );
+      expect(
+        hdNode.fingerprint,
+        '0x73c5da0a',
+        reason: 'fingerprint not expected',
       );
     });
   });
