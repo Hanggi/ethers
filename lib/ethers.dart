@@ -2,6 +2,7 @@ library ethers;
 
 // 🌎 Project imports:
 import 'package:ethers/providers/json_rpc_provider.dart';
+import 'package:ethers/utils/utils.dart';
 
 /// A Calculator.
 class Calculator {
@@ -21,8 +22,4 @@ class Providers {
   jsonRpcProvider(String? url) {
     return JsonRpcProvider(url);
   }
-}
-
-class Utils {
-  String defaultPath = "m/44'/60'/0'/0/0";
 }

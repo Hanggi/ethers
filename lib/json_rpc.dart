@@ -88,6 +88,6 @@ class RPCError implements Exception {
 
   @override
   String toString() {
-    return 'RPCError: got code $errorCode with msg \"$message\".';
+    return 'RPCError: got code $errorCode with msg "$message".';
   }
 }

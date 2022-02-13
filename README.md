@@ -21,4 +21,10 @@ import 'package:ethers/ethers.dart';
 
 ## Usage
 
+```dart
+const provider = new ethers.providers.JsonRpcProvider('http://localhost:7545');
+
+
+```
+
 TODO...
