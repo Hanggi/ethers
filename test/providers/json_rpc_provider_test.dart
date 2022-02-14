@@ -7,7 +7,7 @@ import 'package:ethers/ethers.dart';
 final provider = ethers.providers.jsonRpcProvider();
 
 void main() {
-  var accounts;
+  var accounts = [];
   test('listAccounts', () async {
     accounts = await provider.listAccounts();
     expect(accounts.length, isNot(0));
