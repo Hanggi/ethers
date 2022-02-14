@@ -1,7 +1,7 @@
 class Mnemonic {
   String? phrase;
-  String? path = 'm';
+  String? path;
   String? locale = 'en';
 
-  Mnemonic(String? phrase);
+  Mnemonic({this.phrase, this.path = 'm'});
 }

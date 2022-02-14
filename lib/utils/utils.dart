@@ -29,6 +29,7 @@ enum EtherUnit {
 
 class Utils {
   String defaultPath = "m/44'/60'/0'/0/0";
+
   static final Map<EtherUnit, BigInt> _factors = {
     EtherUnit.wei: BigInt.one,
     EtherUnit.kwei: BigInt.from(10).pow(3),

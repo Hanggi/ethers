@@ -5,8 +5,6 @@ import 'dart:typed_data';
 import 'package:bip32/bip32.dart' as bip32;
 import 'package:convert/convert.dart';
 import 'package:ethers/utils/hdnode/mnemonic.dart';
-import 'package:pointycastle/digests/ripemd160.dart';
-import 'package:pointycastle/digests/sha256.dart';
 
 // 🌎 Project imports:
 import 'package:ethers/crypto/formatting.dart';
@@ -16,7 +14,7 @@ const defaultPath = "m/44'/60'/0'/0/0";
 
 class HDNode {
   /// The private key for this HDNode.
-  final String? privateKey;
+  String? privateKey;
 
   /// The (compresses) public key for this HDNode.
   final String publicKey;
@@ -56,7 +54,7 @@ class HDNode {
   Mnemonic? mnemonic;
 
   /// The path of this HDNode, if known. If the mnemonic is also known, this will match mnemonic.path.
-  String path = defaultPath;
+  String? path = 'm';
 
   List<String> getWordList(String mnemonic) {
     return mnemonic.split(' ');
@@ -72,36 +70,45 @@ class HDNode {
     required this.index,
     required this.depth,
     required this.mnemonic,
+    this.path,
   });
 
-  factory HDNode._fromSeed(Uint8List seed, String? _mnemonic) {
-    if (seed.length < 16 || seed.length > 64) {
-      throw 'invalid seed';
-    }
-    final root = bip32.BIP32.fromSeed(seed);
+  static HDNode _nodeFromRoot(
+    bip32.BIP32 root, {
+    String? mnemonic,
+    String? path,
+  }) {
     final privateKeyInt = bytesToUnsignedInt(root.privateKey!);
     final addressHex = '0x' +
         hex.encode(publicKeyToAddress(privateKeyToPublic(privateKeyInt)));
     final publicKeyHex = '0x' + hex.encode(root.publicKey);
-
-    final sha256 = SHA256Digest();
-    final ripemd160 = RIPEMD160Digest();
-    final fingerprintHex = '0x' +
-        hex
-            .encode(ripemd160.process(sha256.process(root.publicKey)))
-            .substring(0, 8);
 
     return HDNode(
       privateKey: '0x' + hex.encode(root.privateKey!),
       publicKey: publicKeyHex,
       address: getChecksumAddress(addressHex),
       chainCode: '0x' + hex.encode(root.chainCode),
-      index: 0,
-      depth: 0,
-      parentFingerprint: '0x00000000',
-      fingerprint: fingerprintHex,
-      mnemonic: Mnemonic(_mnemonic),
+      index: root.index,
+      depth: root.depth,
+      parentFingerprint: root.parentFingerprint != 0
+          ? '0x' + root.parentFingerprint.toRadixString(16)
+          : '0x00000000',
+      fingerprint: '0x' + hex.encode(root.fingerprint),
+      mnemonic: Mnemonic(
+        phrase: mnemonic,
+        path: path,
+      ),
+      path: path ?? 'm',
     );
+  }
+
+  factory HDNode._fromSeed(Uint8List seed, String? _mnemonic) {
+    if (seed.length < 16 || seed.length > 64) {
+      throw 'invalid seed';
+    }
+    final root = bip32.BIP32.fromSeed(seed);
+
+    return _nodeFromRoot(root, mnemonic: _mnemonic);
   }
 
   factory HDNode.fromMnemonic(String mnemonic) {
@@ -114,6 +121,24 @@ class HDNode {
 
   // TODO: HDNode.fromExtendedKey
 
+  /// Return a new instance of hdNode with its private key removed but all other properties preserved. This ensures that the key can not leak the private key of itself or any derived children, but may still be used to compute the addresses of itself and any non-hardened children.
+  HDNode neuter() {
+    var newHDNode = this;
+    newHDNode.privateKey = null;
+    return newHDNode;
+  }
+
   /// Return a new [HDNode] which is the child of hdNode found by deriving path.
-  derivePath(String path) {}
+  HDNode derivePath(String path) {
+    final root = bip32.BIP32.fromPrivateKey(
+      Uint8List.fromList(hex.decode(strip0x(privateKey!))),
+      Uint8List.fromList(hex.decode(strip0x(chainCode))),
+    );
+
+    final child = root.derivePath(path);
+    return _nodeFromRoot(
+      child,
+      path: path,
+    );
+  }
 }
