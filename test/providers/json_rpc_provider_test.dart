@@ -9,6 +9,11 @@ final provider = ethers.providers
 // Testnet: https://data-seed-prebsc-1-s1.binance.org:8545
 
 void main() {
+  test('listAccounts', () async {
+    final accounts = await provider.listAccounts();
+    expect(accounts, []);
+  });
+
   test('getBlockNumber', () async {
     final blockNumber = await provider.getBlockNumber();
     expect(blockNumber, isNot(0));

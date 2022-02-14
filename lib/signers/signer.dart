@@ -1,1 +1,3 @@
-class Signer {}
+abstract class Signer {
+  getAddress() {}
+}

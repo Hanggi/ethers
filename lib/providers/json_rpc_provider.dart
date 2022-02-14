@@ -33,20 +33,21 @@ class JsonRpcProvider extends Provider {
 
   JsonRpcSigner getSigner() {
     // TODO:
-    return JsonRpcSigner();
+    return JsonRpcSigner(
+      provider: this,
+    );
   }
 
   JsonRpcSigner getUncheckedSigner() {
     // TODO:
-    return JsonRpcSigner();
+    return JsonRpcSigner(
+      provider: this,
+    );
   }
 
-  listAccounts() {
-    // TODO:
-  }
-
-  send() {
-    // TODO:
+  Future<List<String>> listAccounts() async {
+    final accounts = await send<List<dynamic>>('eth_accounts', params: []);
+    return accounts.cast<String>();
   }
 
   prepareRequest() {
@@ -55,6 +56,10 @@ class JsonRpcProvider extends Provider {
 
   perform() {
     // TODO:
+  }
+
+  Future<T> send<T>(String function, {List<dynamic>? params}) {
+    return _makeRPCCall<T>(function, params);
   }
 
   /// ==========================================================================
