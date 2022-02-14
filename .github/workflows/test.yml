@@ -18,6 +18,11 @@ jobs:
       with:
         flutter-version: '2.10.0'
         channel: 'stable'
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
     - run: flutter --version
+    - run: npm -g i ganache-cli
+    - run: ganache-cli
     - run: flutter pub get
     - run: flutter test

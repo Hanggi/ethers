@@ -5,21 +5,40 @@ import 'package:ethers/signers/signer.dart';
 
 class JsonRpcSigner extends Signer {
   final JsonRpcProvider provider;
+  final int? index;
   final String? address;
 
   JsonRpcSigner({
     required this.provider,
     this.address,
+    this.index = 0,
   });
 
-  connect(Provider provider) {
-    // TODO:
+  @override
+  JsonRpcSigner connect(Provider provider) {
+    throw 'cannot alter JSON-RPC Signer connection';
   }
+
+  @override
+  Future<String> getAddress() async {
+    // TODO:
+    return '';
+  }
+
+  @override
+  signMessage() {}
+
+  @override
+  signTransaction() {}
 
   connectUnchecked(Provider provider) {
     // TODO:
   }
 
-  @override
-  getAddress() {}
+  // @override
+  // Future<BigInt> getBalance({
+  //   BlockTag? blockTag,
+  // }) async {
+  //   return await provider.getBalance();
+  // }
 }

@@ -4,19 +4,18 @@ import 'package:flutter_test/flutter_test.dart';
 // 🌎 Project imports:
 import 'package:ethers/ethers.dart';
 
-final provider = ethers.providers
-    .jsonRpcProvider('https://data-seed-prebsc-1-s1.binance.org:8545');
-// Testnet: https://data-seed-prebsc-1-s1.binance.org:8545
+final provider = ethers.providers.jsonRpcProvider();
 
 void main() {
+  var accounts;
   test('listAccounts', () async {
-    final accounts = await provider.listAccounts();
-    expect(accounts, []);
+    accounts = await provider.listAccounts();
+    expect(accounts.length, isNot(0));
   });
 
   test('getBlockNumber', () async {
     final blockNumber = await provider.getBlockNumber();
-    expect(blockNumber, isNot(0));
+    expect(blockNumber, 0);
   });
 
   test('getGasPrice', () async {
@@ -25,8 +24,7 @@ void main() {
   });
 
   test('getBalance', () async {
-    final balance =
-        await provider.getBalance('0x0000000000000000000000000000000000000000');
+    final balance = await provider.getBalance(accounts[0]);
     expect(balance, isNot(0));
   });
 

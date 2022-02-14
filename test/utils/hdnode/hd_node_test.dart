@@ -6,8 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ethers/ethers.dart';
 import 'package:ethers/utils/hdnode/hd_node.dart';
 
-final provider = ethers.providers
-    .jsonRpcProvider('https://data-seed-prebsc-1-s1.binance.org:8545');
+final provider = ethers.providers.jsonRpcProvider();
 // Testnet: https://data-seed-prebsc-1-s1.binance.org:8545
 
 void main() {
