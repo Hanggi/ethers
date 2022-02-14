@@ -24,9 +24,26 @@ import 'package:ethers/ethers.dart';
 ## Usage
 
 ```dart
-const provider = new ethers.providers.JsonRpcProvider('http://localhost:7545');
+const provider = new ethers.providers.JsonRpcProvider();
 
+// Look up the current block number
+await provider.getBlockNumber();
+// 14135476
 
+// Get the balance of an account (by address or ENS name, if supported by network)
+final balance =
+    await provider.getBalance("0x0000000000000000000000000000000000000000");
+// { BigInt: "10478645750785322678769" }
+
+// Often you need to format the output to something more user-friendly,
+// such as in ether (instead of wei)
+ethers.utils.formatEther(balance);
+// '10478.645750785321'
+
+// If a user enters a string in an input field, you may need
+// to convert it from ether (as a string) to wei (as a BigNumber)
+ethers.utils.parseEther("1.0");
+// { BigInt: "1000000000000000000" }
 ```
 
 TODO...

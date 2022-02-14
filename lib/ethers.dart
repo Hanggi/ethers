@@ -19,7 +19,7 @@ class Ethers {
 }
 
 class Providers {
-  jsonRpcProvider(String? url) {
+  JsonRpcProvider jsonRpcProvider(String? url) {
     return JsonRpcProvider(url);
   }
 }
