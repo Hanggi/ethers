@@ -4,8 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 // 🌎 Project imports:
 import 'package:ethers/ethers.dart';
 
-final provider = ethers.providers
-    .jsonRpcProvider(url: 'https://data-seed-prebsc-1-s1.binance.org:8545');
+final provider = ethers.providers.jsonRpcProvider();
 
 void main() {
   test('Ethers', () async {
@@ -16,7 +15,7 @@ void main() {
   test('Querying the Blockchain', () async {
     // Look up the current block number
     final blockNumber = await provider.getBlockNumber();
-    expect(blockNumber, isNot(0));
+    expect(blockNumber, 0);
     // 14135476
 
     // Get the balance of an account (by address or ENS name, if supported by network)

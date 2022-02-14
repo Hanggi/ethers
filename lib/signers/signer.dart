@@ -53,4 +53,15 @@ abstract class Signer {
     }
     return await provider!.estimateGas(transaction);
   }
+
+  Future<String> call(
+    TransactionRequest transaction, {
+    BlockTag? blockTag,
+  }) async {
+    if (provider == null) {
+      throw 'missing provider';
+    }
+    // TODO: check transaction valid.
+    return await provider!.call(transaction, blockTag: blockTag);
+  }
 }
