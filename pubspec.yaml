@@ -1,6 +1,6 @@
 name: ethers
 description: Ethereum library and wallet implementation in Dart.
-version: 0.0.1+1
+version: 0.0.1+2
 homepage: https://pub.dev/documentation/ethers
 repository: https://github.com/Hanggi/ethers
 

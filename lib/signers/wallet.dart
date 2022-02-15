@@ -1,5 +1,4 @@
 // 🌎 Project imports:
-import 'package:convert/convert.dart';
 import 'package:ethers/crypto/formatting.dart';
 import 'package:ethers/crypto/secp256k1.dart';
 import 'package:ethers/providers/provider.dart';
@@ -7,7 +6,6 @@ import 'package:ethers/signers/signer.dart';
 import 'package:ethers/signers/types/wordlist.dart';
 import 'package:ethers/utils/hdnode/hd_node.dart';
 import 'package:ethers/utils/hdnode/mnemonic.dart';
-import 'package:bip32/bip32.dart' as bip32;
 
 class ExternallyOwnedAccount {
   String? address;

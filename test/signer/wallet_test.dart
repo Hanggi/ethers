@@ -1,7 +1,6 @@
 // 📦 Package imports:
 import 'package:ethers/signers/wallet.dart';
 import 'package:ethers/utils/hdnode/hd_node.dart';
-import 'package:ethers/utils/hdnode/mnemonic.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // 🌎 Project imports:
