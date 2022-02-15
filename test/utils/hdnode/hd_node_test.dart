@@ -1,10 +1,10 @@
 // 📦 Package imports:
-import 'package:ethers/utils/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // 🌎 Project imports:
 import 'package:ethers/ethers.dart';
 import 'package:ethers/utils/hdnode/hd_node.dart';
+import 'package:ethers/utils/utils.dart';
 
 final provider = ethers.providers.jsonRpcProvider();
 // Testnet: https://data-seed-prebsc-1-s1.binance.org:8545

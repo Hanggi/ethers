@@ -4,15 +4,17 @@ import 'package:ethers/providers/provider.dart';
 import 'package:ethers/signers/signer.dart';
 
 class JsonRpcSigner extends Signer {
-  final JsonRpcProvider provider;
+  final JsonRpcProvider childProvider;
   final int? index;
   final String? address;
 
   JsonRpcSigner({
-    required this.provider,
+    required this.childProvider,
     this.address,
     this.index = 0,
-  });
+  }) {
+    provider = childProvider;
+  }
 
   @override
   JsonRpcSigner connect(Provider provider) {

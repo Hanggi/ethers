@@ -1,3 +1,4 @@
+// 🌎 Project imports:
 import 'package:ethers/params/block_tag.dart';
 import 'package:ethers/providers/provider.dart';
 import 'package:ethers/providers/types/transaction_types.dart';
@@ -64,4 +65,7 @@ abstract class Signer {
     // TODO: check transaction valid.
     return await provider!.call(transaction, blockTag: blockTag);
   }
+
+  // Future<Uint8List> signTransaction() async {}
+
 }

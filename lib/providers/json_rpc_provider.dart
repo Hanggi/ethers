@@ -1,5 +1,4 @@
 // 📦 Package imports:
-import 'package:ethers/providers/types/transaction_types.dart';
 import 'package:http/http.dart';
 
 // 🌎 Project imports:
@@ -7,6 +6,8 @@ import 'package:ethers/crypto/formatting.dart';
 import 'package:ethers/json_rpc.dart';
 import 'package:ethers/params/block_tag.dart';
 import 'package:ethers/providers/provider.dart';
+import 'package:ethers/providers/types/block.dart';
+import 'package:ethers/providers/types/transaction_types.dart';
 import 'package:ethers/signers/json_rpc_signer.dart';
 
 const defaultURL = 'http://localhost:8545';
@@ -35,14 +36,18 @@ class JsonRpcProvider extends Provider {
   JsonRpcSigner getSigner() {
     // TODO:
     return JsonRpcSigner(
-      provider: this,
+      childProvider: this,
     );
   }
 
-  JsonRpcSigner getUncheckedSigner() {
-    // TODO:
+  JsonRpcSigner getUncheckedSigner({
+    String? address,
+    int? index,
+  }) {
     return JsonRpcSigner(
-      provider: this,
+      childProvider: this,
+      address: address,
+      index: index,
     );
   }
 
@@ -51,13 +56,13 @@ class JsonRpcProvider extends Provider {
     return accounts.cast<String>();
   }
 
-  prepareRequest() {
-    // TODO:
-  }
-
-  perform() {
-    // TODO:
-  }
+  // prepareRequest() {
+  //   // TODO:
+  // }
+  //
+  // perform() {
+  //   // TODO:
+  // }
 
   Future<T> send<T>(String function, {List<dynamic>? params}) {
     return _makeRPCCall<T>(function, params);
@@ -136,6 +141,7 @@ class JsonRpcProvider extends Provider {
   ///
   /// This function allows specifying a custom block mined in the past to get
   /// historical data. By default, [BlockTag.latest] will be used.
+  @override
   Future<String> getCode(
     String address, {
     BlockTag? blockTag,
@@ -151,6 +157,7 @@ class JsonRpcProvider extends Provider {
   /// more details.
   /// This function allows specifying a custom block mined in the past to get
   /// historical data. By default, [BlockTag.latest] will be used.
+  @override
   Future<String> getStorageAt(
     String address,
     BigInt position, {
@@ -184,40 +191,70 @@ class JsonRpcProvider extends Provider {
   //   return sendRawTransaction(signed);
   // }
 
-  getBlock({
+  Future<Block> getBlockByNumber({
     BlockTag? blockTag,
     bool? includeTransactions,
   }) async {
     final bt = blockTag?.toParam() ?? const BlockTag.latest().toParam();
 
-    if (blockTag?.intValue != null) {
-      return await _makeRPCCall<String>(
-        'eth_getBlockByNumber',
-        [bt, includeTransactions ?? false],
-      );
-    }
+    final res = await _makeRPCCall<Map<String, dynamic>>(
+      'eth_getBlockByNumber',
+      [bt, includeTransactions ?? false],
+    );
+    return Block(transactions: res['transactions']);
+  }
 
+  Future<Block> getBlockByHash({
+    BlockTag? blockTag,
+    bool? includeTransactions,
+  }) async {
+    final bt = blockTag?.toParam() ?? const BlockTag.latest().toParam();
     // TODO: Verify hash value.
-    return await _makeRPCCall<String>(
+    final res = await _makeRPCCall<Map<String, dynamic>>(
       'eth_getBlockByHash',
       [bt, includeTransactions ?? false],
     );
+    return Block(transactions: res['transactions']);
   }
 
   /// Returns the information about a transaction requested by transaction hash
   /// [transactionHash].
-  Future<Map<String, dynamic>> getTransaction(String transactionHash) async {
-    return await _makeRPCCall<Map<String, dynamic>>(
+  @override
+  Future<TransactionResponse> getTransaction(String transactionHash) async {
+    final responseMap = await _makeRPCCall<Map<String, dynamic>>(
       'eth_getTransactionByHash',
       [transactionHash],
+    );
+    return TransactionResponse(
+      hash: responseMap['hash'],
+      confirmations: responseMap['confirmations'],
+      from: responseMap['from'],
     );
   }
 
   /// Returns an receipt of a transaction based on its hash.
-  Future<Map<String, dynamic>?> getTransactionReceipt(String hash) async {
-    return await _makeRPCCall<Map<String, dynamic>?>(
+  @override
+  Future<TransactionReceipt> getTransactionReceipt(String hash) async {
+    final res = await _makeRPCCall<Map<String, dynamic>>(
       'eth_getTransactionReceipt',
       [hash],
+    );
+    return TransactionReceipt(
+      to: res['to'],
+      from: res['from'],
+      contractAddress: res['contractAddress'],
+      transactionIndex: res['transactionIndex'],
+      gasUsed: res['gasUsed'],
+      logsBloom: res['logsBloom'],
+      blockHash: res['blockHash'],
+      transactionHash: res['transactionHash'],
+      logs: res['logs'],
+      blockNumber: res['blockNumber'],
+      confirmations: res['confirmations'],
+      cumulativeGasUsed: res['cumulativeGasUsed'],
+      effectiveGasPrice: res['effectiveGasPrice'],
+      byzantium: res['byzantium'],
+      type: res['type'],
     );
   }
 
@@ -250,6 +287,36 @@ class JsonRpcProvider extends Provider {
   @override
   Future<TransactionResponse> sendTransaction(TransactionRequest transaction) {
     // TODO: implement sendTransaction
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Block> getBlock(BlockTag blockTag) {
+    // TODO: implement getBlock
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<BlockWithTransactions> getBlockWithTransactions(BlockTag blockTag) {
+    // TODO: implement getBlockWithTransactions
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Log>> getLogs(Filter filter) {
+    // TODO: implement getLogs
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> lookupAddress(String address) {
+    // TODO: implement lookupAddress
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> resolveName(String name) {
+    // TODO: implement resolveName
     throw UnimplementedError();
   }
 }

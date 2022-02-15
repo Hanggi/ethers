@@ -4,23 +4,27 @@ import 'dart:typed_data';
 // 📦 Package imports:
 import 'package:bip32/bip32.dart' as bip32;
 import 'package:convert/convert.dart';
-import 'package:ethers/utils/hdnode/mnemonic.dart';
 
 // 🌎 Project imports:
 import 'package:ethers/crypto/formatting.dart';
 import 'package:ethers/crypto/secp256k1.dart';
+import 'package:ethers/signers/types/wordlist.dart';
+import 'package:ethers/signers/wallet.dart';
+import 'package:ethers/utils/hdnode/mnemonic.dart';
 
 const defaultPath = "m/44'/60'/0'/0/0";
 
-class HDNode {
+class HDNode implements ExternallyOwnedAccount {
   /// The private key for this HDNode.
+  @override
   String? privateKey;
 
   /// The (compresses) public key for this HDNode.
   final String publicKey;
 
   /// The address of this HDNode.
-  final String address;
+  @override
+  String? address;
 
   /// The chain code is used as a non-secret private key which is then used with EC-multiply to provide the ability to derive addresses without the private key of child non-hardened nodes.
   ///
@@ -111,7 +115,11 @@ class HDNode {
     return _nodeFromRoot(root, mnemonic: _mnemonic);
   }
 
-  factory HDNode.fromMnemonic(String mnemonic) {
+  factory HDNode.fromMnemonic(
+    String mnemonic, {
+    String? password,
+    Wordlist? wordlist,
+  }) {
     return HDNode._fromSeed(mnemonicToSeed(mnemonic), mnemonic);
   }
 

@@ -38,6 +38,13 @@ Uint8List privateKeyToPublic(BigInt privateKey) {
   return Uint8List.view(p.getEncoded(false).buffer, 1);
 }
 
+Uint8List privateKeyToCompressedPublic(BigInt privateKey) {
+  final p = (params.G * privateKey)!;
+
+  //skip the type flag, https://github.com/ethereumjs/ethereumjs-util/blob/master/index.js#L319
+  return Uint8List.view(p.getEncoded(true).buffer, 1);
+}
+
 /// Generates a new private key using the random instance provided. Please make
 /// sure you're using a cryptographically secure generator.
 BigInt generateNewPrivateKey(Random random) {

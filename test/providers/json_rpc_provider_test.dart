@@ -16,7 +16,7 @@ void main() {
   test('getBlockNumber', () async {
     final blockNumber = await provider.getBlockNumber();
     expect(blockNumber, 0);
-  });
+  }, tags: ['runOnNewChain']);
 
   test('getGasPrice', () async {
     final gasPrice = await provider.getGasPrice();
@@ -25,13 +25,12 @@ void main() {
 
   test('getBalance', () async {
     final balance = await provider.getBalance(accounts[0]);
-    expect(balance, isNot(0));
+    expect(balance, isNot(BigInt.zero));
   });
 
   test('getTransactionCount', () async {
-    final count =
-        await provider.getBalance('0x0000000000000000000000000000000000000000');
-    expect(count, isNot(0));
+    final count = await provider.getTransactionCount(accounts[0]);
+    expect(count, 0);
   });
 
   test('getCode', () async {

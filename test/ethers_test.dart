@@ -32,5 +32,5 @@ void main() {
     // to convert it from ether (as a string) to wei (as a BigNumber)
     ethers.utils.parseEther("1.0");
     // { BigInt: "1000000000000000000" }
-  });
+  }, tags: ['runOnNewChain']);
 }

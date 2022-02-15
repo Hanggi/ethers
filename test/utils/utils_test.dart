@@ -1,6 +1,8 @@
 // 📦 Package imports:
-import 'package:ethers/utils/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+// 🌎 Project imports:
+import 'package:ethers/utils/utils.dart';
 
 // 🌎 Project imports:
 

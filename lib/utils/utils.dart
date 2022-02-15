@@ -1,8 +1,12 @@
+// 🎯 Dart imports:
 import 'dart:typed_data';
 
-import 'package:decimal/decimal.dart';
-import 'package:ethers/crypto/formatting.dart' as fmt;
+// 📦 Package imports:
 import 'package:bip39/bip39.dart' as bip39;
+import 'package:decimal/decimal.dart';
+
+// 🌎 Project imports:
+import 'package:ethers/crypto/formatting.dart' as fmt;
 
 enum EtherUnit {
   /// Wei, the smallest and atomic amount of Ether
