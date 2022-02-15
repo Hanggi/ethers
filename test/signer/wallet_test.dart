@@ -26,13 +26,9 @@ void main() async {
       expect(walletMnemonic.publicKey,
           '0x04b9e72dfd423bcf95b3801ac93f4392be5ff22143f9980eb78b3a860c4843bfd04829ae61cdba4b3b1978ac5fc64f5cc2f4350e35a108a9c9a92a81200a60cd64');
 
-      expect(
-          walletMnemonic.mnemonic,
-          Mnemonic(
-            phrase:
-                'announce room limb pattern dry unit scale effort smooth jazz weasel alcohol',
-            path: defaultPath,
-          ));
+      expect(walletMnemonic.mnemonic!.phrase,
+          'announce room limb pattern dry unit scale effort smooth jazz weasel alcohol');
+      expect(walletMnemonic.mnemonic!.path, defaultPath);
     });
 
     test('.fromPrivateKey()', () async {

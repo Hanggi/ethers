@@ -94,7 +94,6 @@ class Wallet extends Signer implements ExternallyOwnedAccount {
     Wordlist? wordlist,
   }) {
     path ??= defaultPath;
-
     return Wallet.fromHDNode(HDNode.fromMnemonic(mnemonic).derivePath(path));
   }
 

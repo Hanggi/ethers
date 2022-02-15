@@ -147,6 +147,7 @@ class HDNode implements ExternallyOwnedAccount {
     return _nodeFromRoot(
       child,
       path: path,
+      mnemonic: (mnemonic != null) ? mnemonic!.phrase : null,
     );
   }
 }
