@@ -9,7 +9,6 @@ import 'package:ethers/ethers.dart';
 final provider = ethers.providers.jsonRpcProvider();
 
 void main() async {
-  final accounts = await provider.listAccounts();
   const mnemonic =
       'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about';
 

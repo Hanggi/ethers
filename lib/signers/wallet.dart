@@ -97,8 +97,8 @@ class Wallet extends Signer implements ExternallyOwnedAccount {
 
   @override
   Signer connect(Provider provider) {
-    // TODO: implement connect
-    throw UnimplementedError();
+    provider = provider;
+    return this;
   }
 
   @override

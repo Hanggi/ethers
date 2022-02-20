@@ -25,4 +25,8 @@ jobs:
     - run: npm -g i ganache-cli
     - run: ganache-cli &
     - run: flutter pub get
-    - run: flutter test
+    - run: flutter test  --coverage
+    - uses: codecov/codecov-action@v2
+      with:
+        files: lcov.info
+
