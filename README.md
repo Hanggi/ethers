@@ -24,7 +24,7 @@ import 'package:ethers/ethers.dart';
 ## Usage
 
 ```dart
-const provider = new ethers.providers.JsonRpcProvider();
+final provider = ethers.providers.jsonRpcProvider();
 
 // Look up the current block number
 await provider.getBlockNumber();
