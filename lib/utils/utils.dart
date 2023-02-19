@@ -96,17 +96,19 @@ class Utils {
     String value, {
     int unit = 18,
   }) {
-    return (Decimal.parse(value) * Decimal.ten.pow(unit)).toBigInt();
+    return (Decimal.parse(value) * Decimal.ten.pow(unit).toDecimal())
+        .toBigInt();
   }
 
   parseUnitsByEtherUnit(
     String value, {
     EtherUnit unit = EtherUnit.ether,
   }) {
-    return (Decimal.parse(value) * Decimal.ten.pow(_pows[unit]!)).toBigInt();
+    return (Decimal.parse(value) * Decimal.ten.pow(_pows[unit]!).toDecimal())
+        .toBigInt();
   }
 
   BigInt parseEther(String value) {
-    return (Decimal.parse(value) * Decimal.ten.pow(18)).toBigInt();
+    return (Decimal.parse(value) * Decimal.ten.pow(18).toDecimal()).toBigInt();
   }
 }
